@@ -18,8 +18,12 @@ jobs:
           java-version: "25"
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+      - name: Prepare Gradle wrapper
+        run: chmod +x gradlew && ls -la gradle/wrapper
+      - name: Verify Gradle
+        run: ./gradlew --version
       - name: Build
-        run: ./gradlew build --no-daemon
+        run: ./gradlew build --no-daemon --stacktrace
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
