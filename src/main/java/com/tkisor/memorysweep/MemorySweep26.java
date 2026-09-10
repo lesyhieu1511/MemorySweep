@@ -51,7 +51,7 @@ public final class MemorySweep26 implements DedicatedServerModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
             dispatcher.register(Commands.literal("memorysweep")
                 .then(Commands.literal("now")
-                    .requires(s -> s.hasPermission(2))
+                    .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
                     .executes(c -> {
                         sweep("manual");
                         c.getSource().sendSuccess(
@@ -59,14 +59,14 @@ public final class MemorySweep26 implements DedicatedServerModInitializer {
                         return 1;
                     }))
                 .then(Commands.literal("status")
-                    .requires(s -> s.hasPermission(2))
+                    .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
                     .executes(c -> {
                         c.getSource().sendSuccess(
                                 () -> Component.literal(status()), false);
                         return 1;
                     }))
                 .then(Commands.literal("threshold")
-                    .requires(s -> s.hasPermission(2))
+                    .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
                     .then(Commands.argument("percent", IntegerArgumentType.integer(1, 99))
                         .executes(c -> {
                             config.thresholdPercent =
